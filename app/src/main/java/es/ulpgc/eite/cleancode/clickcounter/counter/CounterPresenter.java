@@ -135,7 +135,7 @@ public class CounterPresenter implements CounterContract.Presenter {
   public void onIncrementPressed() {
     // Log.e(TAG, "onIncrementPressed()");
     state.clicks=state.clicks+1;
-    if(state.counter==10){
+    if(state.counter==9){
       state.counter=0;
     }else{
       state.counter=state.counter+1;
