@@ -1,5 +1,7 @@
 package es.ulpgc.eite.cleancode.clickcounter.clicks;
 
+import android.util.Log;
+
 import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.clickcounter.app.AppMediator;
@@ -35,10 +37,12 @@ public class ClicksPresenter implements ClicksContract.Presenter {
 
     // use passed state if is necessary
     CounterToClicksState savedState = getStateFromPreviousScreen();
+
     if (savedState != null) {
 
       // update the model if is necessary
       model.onDataFromPreviousScreen(savedState.data);
+
 
       // update the state if is necessary
       state.data = savedState.data;

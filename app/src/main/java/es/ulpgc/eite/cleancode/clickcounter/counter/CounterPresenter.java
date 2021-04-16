@@ -1,5 +1,7 @@
 package es.ulpgc.eite.cleancode.clickcounter.counter;
 
+import android.util.Log;
+
 import java.lang.ref.WeakReference;
 
 import es.ulpgc.eite.cleancode.clickcounter.app.AppMediator;
@@ -13,6 +15,7 @@ public class CounterPresenter implements CounterContract.Presenter {
   private WeakReference<CounterContract.View> view;
   private CounterState state;
   private CounterContract.Model model;
+  private int a;
 
   private AppMediator mediator;
 
@@ -32,6 +35,7 @@ public class CounterPresenter implements CounterContract.Presenter {
     }
 
     // call the model and update the state
+    a=0;
     state.data = model.getStoredData();
 
     /*
@@ -98,16 +102,31 @@ public class CounterPresenter implements CounterContract.Presenter {
   @Override
   public void onClicksPressed() {
     // Log.e(TAG, "onClicksPressed()");
+    CounterToClicksState pasarAClick=new CounterToClicksState();
+    pasarAClick.data=model.getStoredData();
+
+    view.get().navigateToNextScreen();
+
   }
 
   @Override
   public void onResetPressed() {
     // Log.e(TAG, "onResetPressed()");
+    a=0;
+    state.data=""+a;
+    view.get().onDataUpdated(state);
   }
 
   @Override
   public void onIncrementPressed() {
     // Log.e(TAG, "onIncrementPressed()");
+    if(a==10){
+      a=0;
+    }else{
+      a=a+1;
+    }
+    state.data=""+a;
+    view.get().onDataUpdated(state);
   }
 
   private void passStateToNextScreen(CounterToClicksState state) {
