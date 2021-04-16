@@ -17,6 +17,7 @@ public class ClicksPresenter implements ClicksContract.Presenter {
   private ClicksContract.Model model;
   private AppMediator mediator;
 
+
   public ClicksPresenter(AppMediator mediator) {
     this.mediator = mediator;
     state = mediator.getClicksState();
@@ -34,6 +35,7 @@ public class ClicksPresenter implements ClicksContract.Presenter {
 
     // call the model and update the state
     state.data = model.getStoredData();
+    state.pulsado=false;
 
 
     // use passed state if is necessary
@@ -80,6 +82,7 @@ public class ClicksPresenter implements ClicksContract.Presenter {
     //state.data = model.getStoredData();
 
     // update the view
+    view.get().resetClick(true);
     view.get().onDataUpdated(state);
 
   }
@@ -88,9 +91,10 @@ public class ClicksPresenter implements ClicksContract.Presenter {
   public void onBackPressed() {
     // Log.e(TAG, "onBackPressed()");
     ClicksToCounterState pasarCounter=new ClicksToCounterState();
-    pasarCounter.data=state.data;
+    pasarCounter.data=state.pulsado;
 
     passStateToPreviousScreen(pasarCounter);
+
 
   }
 
@@ -108,7 +112,11 @@ public class ClicksPresenter implements ClicksContract.Presenter {
   public void onClearPressed() {
 
     state.data=""+0;
+    state.pulsado=true;
+    view.get().resetClick(false);
     view.get().onDataUpdated(state);
+
+
 
   }
 

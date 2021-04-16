@@ -73,13 +73,16 @@ public class CounterPresenter implements CounterContract.Presenter {
 
     // use passed state if is necessary
     ClicksToCounterState savedState = getStateFromNextScreen();
-    if (savedState != null) {
 
+    if (savedState != null) {
+      Log.e(TAG,"entro");
       // update the model if is necessary
-      model.onDataFromNextScreen(savedState.data);
+      if(savedState.data==true){
+        state.clicks=0;
+      }
 
       // update the state if is necessary
-      state.data = savedState.data;
+
 
     }
 

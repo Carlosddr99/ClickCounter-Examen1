@@ -78,5 +78,9 @@ public class ClicksActivity
   public void injectPresenter(ClicksContract.Presenter presenter) {
     this.presenter = presenter;
   }
+  @Override
+  public void resetClick(boolean notfirst){
+    findViewById(R.id.btnClear).setEnabled(notfirst);
+  }
 
 }

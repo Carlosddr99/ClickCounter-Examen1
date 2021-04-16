@@ -52,7 +52,9 @@ public class AppMediator {
   }
 
   public ClicksToCounterState getCounterNextScreenState() {
-    return clicksToCounterState;
+    ClicksToCounterState state = clicksToCounterState;
+    clicksToCounterState = null;
+    return state;
   }
 
 
