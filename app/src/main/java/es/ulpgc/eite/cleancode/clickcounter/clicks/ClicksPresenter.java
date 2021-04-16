@@ -82,7 +82,7 @@ public class ClicksPresenter implements ClicksContract.Presenter {
     //state.data = model.getStoredData();
 
     // update the view
-    view.get().resetClick(true);
+    view.get().resetClick(!state.pulsado);
     view.get().onDataUpdated(state);
 
   }
@@ -113,7 +113,7 @@ public class ClicksPresenter implements ClicksContract.Presenter {
 
     state.data=""+0;
     state.pulsado=true;
-    view.get().resetClick(false);
+    view.get().resetClick(!state.pulsado);
     view.get().onDataUpdated(state);
 
 

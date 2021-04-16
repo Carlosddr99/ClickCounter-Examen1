@@ -21,6 +21,7 @@ public class ClicksModel implements ClicksContract.Model {
   @Override
   public void onRestartScreen(String data) {
     // Log.e(TAG, "onRestartScreen()");
+
   }
 
   @Override
