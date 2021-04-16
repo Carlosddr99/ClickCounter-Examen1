@@ -35,6 +35,7 @@ public class ClicksPresenter implements ClicksContract.Presenter {
     // call the model and update the state
     state.data = model.getStoredData();
 
+
     // use passed state if is necessary
     CounterToClicksState savedState = getStateFromPreviousScreen();
 
@@ -86,6 +87,11 @@ public class ClicksPresenter implements ClicksContract.Presenter {
   @Override
   public void onBackPressed() {
     // Log.e(TAG, "onBackPressed()");
+    ClicksToCounterState pasarCounter=new ClicksToCounterState();
+    pasarCounter.data=state.data;
+
+    passStateToPreviousScreen(pasarCounter);
+
   }
 
   @Override
@@ -100,7 +106,10 @@ public class ClicksPresenter implements ClicksContract.Presenter {
 
   @Override
   public void onClearPressed() {
-    // Log.e(TAG, "onClearPressed()");
+
+    state.data=""+0;
+    view.get().onDataUpdated(state);
+
   }
 
   private void passStateToPreviousScreen(ClicksToCounterState state) {

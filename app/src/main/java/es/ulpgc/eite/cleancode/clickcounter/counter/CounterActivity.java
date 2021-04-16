@@ -94,6 +94,8 @@ public class CounterActivity
 
     // deal with the data
     ((TextView) findViewById(R.id.tvCounter)).setText(viewModel.data);
+    resetEnable(viewModel.counter);
+
   }
 
   @Override
@@ -101,4 +103,18 @@ public class CounterActivity
     this.presenter = presenter;
   }
 
+  public void resetEnable(int counter){
+    if(counter==0){
+      findViewById(R.id.btnReset).setEnabled(false);
+    }else{
+      findViewById(R.id.btnReset).setEnabled(true);
+    }
+
+  }
+  @Override
+  public void primerMomentoClickNotEnable(boolean notfirst){
+  findViewById(R.id.btnClicks).setEnabled(notfirst);
+  }
+
 }
+

@@ -10,6 +10,8 @@ public interface CounterContract {
 
     void navigateToNextScreen();
     void onDataUpdated(CounterViewModel viewModel);
+
+    void primerMomentoClickNotEnable(boolean notfirst);
   }
 
   interface Presenter {

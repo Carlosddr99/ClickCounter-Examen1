@@ -15,7 +15,8 @@ public class CounterPresenter implements CounterContract.Presenter {
   private WeakReference<CounterContract.View> view;
   private CounterState state;
   private CounterContract.Model model;
-  private int a;
+
+
 
   private AppMediator mediator;
 
@@ -35,8 +36,11 @@ public class CounterPresenter implements CounterContract.Presenter {
     }
 
     // call the model and update the state
-    a=0;
-    state.data = model.getStoredData();
+    state.counter=0;
+    state.data = ""+0;
+    state.clicks=0;
+    view.get().primerMomentoClickNotEnable(false);
+
 
     /*
     // use passed state if is necessary
@@ -54,15 +58,18 @@ public class CounterPresenter implements CounterContract.Presenter {
 
   @Override
   public void onRestart() {
-    // Log.e(TAG, "onRestart()");
+    Log.e(TAG, "onRestart()");
 
     // update the model if is necessary
+
+    state.data=""+state.counter;
+
     model.onRestartScreen(state.data);
   }
 
   @Override
   public void onResume() {
-    // Log.e(TAG, "onResume()");
+     Log.e(TAG, "onResume()");
 
     // use passed state if is necessary
     ClicksToCounterState savedState = getStateFromNextScreen();
@@ -73,12 +80,14 @@ public class CounterPresenter implements CounterContract.Presenter {
 
       // update the state if is necessary
       state.data = savedState.data;
+
     }
 
     // call the model and update the state
     //state.data = model.getStoredData();
 
     // update the view
+
     view.get().onDataUpdated(state);
 
   }
@@ -102,8 +111,10 @@ public class CounterPresenter implements CounterContract.Presenter {
   @Override
   public void onClicksPressed() {
     // Log.e(TAG, "onClicksPressed()");
+
     CounterToClicksState pasarAClick=new CounterToClicksState();
-    pasarAClick.data=model.getStoredData();
+    pasarAClick.data=""+state.clicks;
+    passStateToNextScreen(pasarAClick);
 
     view.get().navigateToNextScreen();
 
@@ -112,21 +123,24 @@ public class CounterPresenter implements CounterContract.Presenter {
   @Override
   public void onResetPressed() {
     // Log.e(TAG, "onResetPressed()");
-    a=0;
-    state.data=""+a;
+    state.counter=0;
+    state.data=""+state.counter;
     view.get().onDataUpdated(state);
   }
 
   @Override
   public void onIncrementPressed() {
     // Log.e(TAG, "onIncrementPressed()");
-    if(a==10){
-      a=0;
+    state.clicks=state.clicks+1;
+    if(state.counter==10){
+      state.counter=0;
     }else{
-      a=a+1;
+      state.counter=state.counter+1;
     }
-    state.data=""+a;
+    state.data=""+state.counter;
+    view.get().primerMomentoClickNotEnable(true);
     view.get().onDataUpdated(state);
+
   }
 
   private void passStateToNextScreen(CounterToClicksState state) {
